@@ -1,98 +1,107 @@
-# Code Review Assistant
+Code Review Assistant
 
-This project is a simple web application that uses the Google Generative AI (Gemini) API to provide automated code reviews. You can upload a source code file, and the application will return suggestions for improving readability, modularity, and identifying potential bugs.
+This project is a simple web application that uses the OpenAI API to provide automated code reviews. You can upload a source code file, and the application will return suggestions for improving readability, modularity, and identifying potential bugs.
 
-## Features
+Features
 
-- **Automated Code Review**: Leverages the Gemini 1.5 Flash model to analyze your code.
-- **Simple Web Interface**: An easy-to-use HTML form for uploading files.
-- **FastAPI Backend**: A robust and fast Python web framework.
+Automated Code Review: Leverages the OpenAI GPT model to analyze your code.
 
-## Tech Stack
+Simple Web Interface: An easy-to-use HTML form for uploading files.
 
-- **Backend**: Python 3.10+, FastAPI
-- **AI Model**: Google Gemini 1.5 Flash
-- **Server**: Uvicorn
+FastAPI Backend: A robust and fast Python web framework.
 
-## Prerequisites
+Tech Stack
 
-- Python 3.10 or higher
-- An active Google AI Studio API key.
+Backend: Python 3.10+, FastAPI
 
-## Setup and Installation
+AI Model: OpenAI GPT (via openai Python library)
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/your-username/code-review-assistant.git
-    cd code-review-assistant
-    ```
+Server: Uvicorn
 
-2.  **Create and activate a virtual environment (recommended):**
-    ```bash
-    # For Windows
-    python -m venv venv
-    venv\Scripts\activate
+Prerequisites
 
-    # For macOS/Linux
-    python3 -m venv venv
-    source venv/bin/activate
-    ```
+Python 3.10 or higher
 
-3.  **Install the required dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
+An active OpenAI API key
 
-4.  **Set up your environment variables:**
+Setup and Installation
 
-    Create a `.env` file in the root of the project and add your Google AI Studio API key:
-    ```
-    GOOGLE_API_KEY="your_google_api_key_here"
-    ```
-    The application loads this key from the environment variables.
+Clone the repository:
 
-## How to Run the Application
+git clone https://github.com/krishnasairayavaram/code-review-assistant.git
+cd code-review-assistant
 
-Once you have completed the setup, you can run the application using Uvicorn:
 
-```bash
+Create and activate a virtual environment (recommended):
+
+# Windows
+python -m venv venv
+venv\Scripts\activate
+
+# macOS/Linux
+python3 -m venv venv
+source venv/bin/activate
+
+
+Install the required dependencies:
+
+pip install -r requirements.txt
+
+
+Set up your environment variables:
+
+Create a .env file in the root of the project and add your OpenAI API key:
+
+OPENAI_API_KEY="your_openai_api_key_here"
+
+
+The application loads this key from the environment variables.
+
+How to Run the Application
+
+Run the FastAPI app using Uvicorn:
+
 uvicorn main:app --reload
-```
 
-The `--reload` flag enables hot-reloading, which automatically restarts the server when you make changes to the code.
 
-The application will be available at `http://127.0.0.1:8000`.
+The --reload flag enables hot-reloading, automatically restarting the server when you make changes to the code.
 
-## How to Use
+Access the application at http://127.0.0.1:8000.
 
-1.  Open your web browser and navigate to `http://127.0.0.1:8000`.
-2.  You will see an upload form. Click "Choose File" to select a source code file from your local machine.
-3.  Click the "Get Review" button.
-4.  The application will send the file to the Gemini API and display the review suggestions on the same page.
+How to Use
 
-### Example Request
+Open your web browser and navigate to http://127.0.0.1:8000.
 
--   **URL**: `http://127.0.0.1:8000/review`
--   **Method**: `POST`
--   **Body**: `multipart/form-data` with a single file field named `file`.
+Use the upload form to select a source code file from your local machine.
 
-### Example Response
+Click the Get Review button.
 
-The API will return a JSON object with the code review:
+The application will send the file to the OpenAI API and display the review suggestions on the page.
 
-```json
+Example Request
+
+URL: http://127.0.0.1:8000/review
+
+Method: POST
+
+Body: multipart/form-data with a single file field named file
+
+Example Response
 {
-  "review": "The code is generally well-structured. However, consider breaking down the `process_data` function into smaller, more manageable pieces to improve modularity. Also, there is a potential for a null pointer exception on line 42 if the `user` object is not properly initialized."
+  "review": "The code is generally well-structured. However, consider breaking down the `process_data` function into smaller, more manageable pieces to improve modularity. Also, handle division by zero in the calculator function to prevent runtime errors."
 }
-```
 
-## Project Structure
-
-```
+Project Structure
 .
-├── .env          # Environment variables (contains GOOGLE_API_KEY)
-├── main.py       # FastAPI application logic
-├── requirements.txt # Project dependencies
+├── .env              # Environment variables (contains OPENAI_API_KEY)
+├── main.py           # FastAPI application logic
+├── requirements.txt  # Project dependencies
 ├── templates/
-│   └── index.html  # HTML form for file uploads
-└── README.md     # This file
+│   └── index.html    # HTML form for file uploads
+└── README.md         # This file
+
+Notes
+
+Never commit .env with your API key to GitHub. Use .gitignore to prevent this.
+
+You can provide a .env.example file with a placeholder key for collaborators.
